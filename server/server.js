@@ -16,13 +16,16 @@ const io = new Server(server, {
     }
 });
 
+
 io.on("connection", (socket) => {
 
-    console.log("Connected :", socket.id);
+    console.log("Connected:", socket.id);
 
-    socket.on("disconnect", () => {
+    socket.on("message", (msg) => {
 
-        console.log("Disconnected :", socket.id);
+        console.log("Received:", msg);
+
+        socket.emit("reply", "Hello Client");
 
     });
 

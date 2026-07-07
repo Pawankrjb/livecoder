@@ -1,24 +1,15 @@
-import { useEffect } from "react";
-import { io } from "socket.io-client";
+import Editor from "@monaco-editor/react";
 
 function App() {
-
-  useEffect(() => {
-
-    const socket = io("http://localhost:3000");
-
-    socket.on("connect", () => {
-      console.log("Connected :", socket.id);
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-
-  }, []);
-
   return (
-    <h1>Collaborative Editor</h1>
+    <div style={{ height: "100vh" }}>
+      <Editor
+        height="100%"
+        defaultLanguage="javascript"
+        defaultValue="// Start typing..."
+        theme="vs-dark"
+      />
+    </div>
   );
 }
 
