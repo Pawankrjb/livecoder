@@ -1,4 +1,6 @@
-import { validateOperation } from "./operation.js";
+import { operation, validateOperation } from "./operation.js";
+import { transform } from "./transform.js";
+
 
 const applyOperation = (document, operation) => {
 
@@ -51,7 +53,27 @@ const applyOperation = (document, operation) => {
 
     throw new Error("Unknown operation");
 };
+const { version } = operation;
 
+const processOperation = (document, operation, history) => {
+
+    if (operation.version === document.version) {
+        return applyOperation(document, operation);
+    }
+    else {
+
+        for (let i = operation.version; i < history.length; i++) {
+
+            operation = transform(operation, history[i]);
+
+            if (operation === null) {
+                return document;
+            }
+
+        }
+        return applyOperation(document, operation);
+    }
+};
 export {
-    applyOperation
+    applyOperation, processOperation
 };

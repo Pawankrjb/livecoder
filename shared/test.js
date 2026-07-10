@@ -1,29 +1,36 @@
+import { processOperation } from "./engine.js";
 
-import { document } from "./document.js";
-import { operation } from "./operation.js";
-import { applyOperation } from "./engine.js";
-
-const newDocument = applyOperation(document, operation);
-
-console.log(newDocument);
 const document = {
-
-    content: "HelloA",
-
-    version: 1
-
+    content: "HelloAB",
+    version: 2
 };
-const history={
-    type: "insert",
+
+const history = [
+    {
+        type: "insert",
         position: 5,
         text: "A",
         version: 0
-};
+    },
+    {
+        type: "insert",
+        position: 6,
+        text: "B",
+        version: 1
+    }
+];
+
 const operation = {
     type: "insert",
     position: 5,
-    text: "B",
+    text: "X",
     version: 0
 };
 
+const newDocument = processOperation(
+    document,
+    operation,
+    history
+);
 
+console.log(newDocument);
