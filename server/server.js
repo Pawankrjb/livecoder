@@ -1,13 +1,13 @@
-const express = require("express");
-const http = require("http");
-const { Server } = require("socket.io");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
+import { createServer } from "http";
+import { Server } from "socket.io";
 
 const app = express();
 
 app.use(cors());
 
-const server = http.createServer(app);
+const server = createServer(app);
 
 const io = new Server(server, {
     cors: {
@@ -16,23 +16,19 @@ const io = new Server(server, {
     }
 });
 
-
 io.on("connection", (socket) => {
+    console.log("Client Connected:", socket.id);
+    socket.on("operation", (operation) => {
 
-    console.log("Connected:", socket.id);
+    console.log(operation);
 
-    socket.on("message", (msg) => {
-
-        console.log("Received:", msg);
-
-        socket.emit("reply", "Hello Client");
-
+});
+    socket.on("disconnect", () => {
+        console.log("Client Disconnected:", socket.id);
     });
 
 });
 
 server.listen(3000, () => {
-
-    console.log("Server Started");
-
+    console.log("Server Running");
 });
