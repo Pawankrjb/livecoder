@@ -58,7 +58,7 @@ const { version } = operation;
 const processOperation = (document, operation, history) => {
 
     if (operation.version === document.version) {
-        return applyOperation(document, operation);
+       return applyOperation(document, operation);
     }
     else {
 
