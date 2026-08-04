@@ -25,9 +25,12 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          npm --prefix clint install
+          npm --prefix clint run build --if-present
+          npm --prefix clint run test --if-present
+          npm --prefix server install
+          npm --prefix server run build --if-present
+          npm --prefix server run test --if-present
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
