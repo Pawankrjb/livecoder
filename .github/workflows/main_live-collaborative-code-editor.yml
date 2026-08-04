@@ -64,5 +64,6 @@ jobs:
         with:
           app-name: 'Live-Collaborative-Code-Editor'
           slot-name: 'Production'
+          type: zip
           package: .
           
